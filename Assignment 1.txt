@@ -1,0 +1,106 @@
+MYSQL Assignment-1
+
+Q1)
+SHOW databases;	
+
+Q2)
+CREATE TABLE countries (
+ country_id INT,
+ country_name VARCHAR(30),
+ region_id INT
+);
+
+DESC countries;
+
+
+Q3)
+CREATE TABLE jobs(
+ job_id int primary key,
+ job_title varchar(30) not null,
+ min_salary decimal(10,2),
+ max_salary decimal(10,2) check (max_salary <= 25000)
+);
+
+DESC jobs;
+
+
+Q4)
+CREATE TABLE job_history (
+ employee_id int,
+ start_date date,
+ end_date date,
+ job_id int,
+ dept_id int
+);
+
+DESC job_history;
+
+Q5)
+ALTER TABLE countries
+add constraint unique_country_id unique (country_id);
+
+DESC countries;
+
+Q6)
+CREATE TABLE jobs_default (
+ job_id int,
+ job_title varchar(30) default "",
+ min_salary int default 8000,
+ max_salary int default null
+);
+
+DESC jobs_default;
+
+Q7)
+CREATE TABLE departments (
+ deparment_id decimal(4,0) not null,
+ deparment_name varchar(30) not null,
+ manager_id decimal(6,0) not null,
+ location_id decimal(4,0),
+ primary key (deparment_id, manager_id)
+); 
+
+
+Q8)
+CREATE TABLE employees (
+employee_id int primary key,
+first_name varchar(50),
+last_name varchar(50),
+email varchar(25),
+phone_number varchar(15),
+hire_date date,
+job_id int,
+salary decimal(7,2),
+commission decimal(7,2),
+manager_id int,
+department_id decimal(4,0),
+foreign key(department_id)
+     references departments(department_id)
+);
+
+Q9)
+CREATE TABLE department_managers (
+department_id decimal(4,0) not null,
+manager_id decimal(6,0) not null,
+manager_name varchar(50) not null,
+primary key (department_id, manager_id)
+);
+
+desc department_managers;
+
+ALTER TABLE employees
+MODIFY department_id DECIMAL(4,0),
+MODIFY manager_id DECIMAL(6,0);
+
+ALTER TABLE employees
+ADD CONSTRAINT fk_department_manager
+FOREIGN KEY (department_id, manager_id)
+REFERENCES department_managers (department_id, manager_id);
+ 
+
+
+
+
+
+
+
